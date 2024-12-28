@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Калькулятор ускорения</title>
+    <style>
+        body {
+            background-image: url('../static/background_image.jpg'); /* Установите путь к изображению фона */
+            background-size: cover; /* Заставляем изображение фона занимать всю страницу */
+            font-family: Arial, sans-serif; /* Шрифт для страницы */
+            color: #333; /* Цвет текста */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Минимальная высота страницы */
+            margin: 0; /* Убираем отступы у body */
+        }
+        h2 {
+            text-align: center;
+            color: #763683; /* Синий цвет заголовка */
+
+            font-size: 2.5em; /* Размер шрифта заголовка */
+        }
+        table {
+            width: 100%; /* Растягиваем таблицу на всю ширину */
+            border-collapse: collapse;
+            margin-top: auto; /* Отодвигаем таблицу вниз */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Тень для таблицы */
+            background-color: rgba(78, 78, 98, 0.9); /* Темно-синий фон для таблицы */
+        }
+        th, td {
+            border: 1px solid #b38a57; /* Темно-синяя граница ячеек */
+            padding: 10px; /* Увеличенное поле для ячеек */
+            text-align: center;
+            color: black; /* Цвет текста внутри ячеек черный */
+        }
+        th {
+            background-color: #003366; /* Темно-синий фон для заголовков */
+            color: white; /* Белый цвет текста для заголовков */
+        }
+        #result-row {
+            font-weight: bold;
+            background-color: #f1f1f1; /* Светлый фон для итоговой строки */
+        }
+        .image-container {
+            display: flex;
+            justify-content: space-around; /* Равномерное распределение изображений */
+            align-items: center;
+        }
+        .image-container img {
+            width: 240px; /* Ширина изображения */
+            height: 180px; /* Высота изображения */
+        }
+        input[type="number"] {
+            width: calc(100% - 20px); /* Полная ширина поля ввода с учетом отступов */
+            padding: 10px; /* Поля внутри поля ввода */
+            border-radius: 5px; /* Закругленные углы поля ввода */
+            border: 1px solid #007BFF; /* Синяя граница поля ввода */
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1); /* Внутренняя тень для поля ввода */
+            background-color: #ffffff; /* Белый цвет фона поля ввода */
+        }
+        input[type="number"]:focus {
+            outline: none; /* Убираем стандартный контур при фокусе */
+            border-color: #0056b3; /* Более темный синий при фокусе */
+        }
+    </style>
+</head>
+<body>
+
+<h2>BRIGADA7 TEAMS</h2>
+<table>
+    <tbody id="table-body">
+        <tr>
+            <td><div class="image-container"><img src="/static/x1.jpeg" alt="1x"></div></td>
+            <td><div class="image-container"><img src="/static/x5.jpeg" alt="5x"></div></td>
+            <td><div class="image-container"><img src="/static/x15.jpeg" alt="15x"></div></td>
+            <td><div class="image-container"><img src="/static/x30.jpeg" alt="30x"></div></td>
+            <td><div class="image-container"><img src="/static/x60.jpeg" alt="60x"></div></td>
+            <td><div class="image-container"><img src="/static/x240.jpeg" alt="240x"></div></td>
+        </tr>
+
+       <!-- Строка для ввода минут -->
+       <tr class="input-row">
+           <td><input type='number' class='minutes-input' placeholder='кол-во' oninput='calculateTime()'></td>
+           <td><input type='number' class='minutes-input' placeholder='кол-во' oninput='calculateTime()'></td>
+           <td><input type='number' class='minutes-input' placeholder='кол-во' oninput='calculateTime()'></td>
+           <td><input type='number' class='minutes-input' placeholder='кол-во' oninput='calculateTime()'></td>
+           <td><input type='number' class='minutes-input' placeholder='кол-во' oninput='calculateTime()'></td>
+           <td><input type='number' class='minutes-input' placeholder='кол-во' oninput='calculateTime()'></td>
+       </tr>
+
+       <!-- Чекбокс для ускорения -->
+       <tr>
+           <td colspan="6" style="text-align:center;">
+               <label style="color:#4b8b3b;"><input type="checkbox" id="speed-up-checkbox" onchange="calculateTime()">Баф Региона (Ускорить на 10%)</label> <!-- Цвет хаки -->
+           </td>
+       </tr>
+
+       <!-- Итоговая строка -->
+       <tr id="result-row">
+           <td colspan="6">Общее время:
+               <span id="total-time">0 дней, 0 часов, 0 минут</span><br />
+               Всего минут:
+               <span id="total-minutes">0</span></td>
+       </tr>
+
+   </tbody>
+</table>
+
+<script>
+   let rowCount = 1; // Счетчик строк
+
+   function calculateTime() {
+       const inputs = document.querySelectorAll('.minutes-input');
+       let totalMinutes = [0, 0, 0, 0, 0, 0]; // Массив для хранения сумм минут для каждого ускорения
+
+       inputs.forEach((input, index) => {
+           const minutes = parseInt(input.value) || 0; // Получаем значение или 0, если пусто
+           if (index === 0) totalMinutes[0] += minutes; // Ускорение 1x
+           else if (index === 1) totalMinutes[1] += minutes / 5; // Ускорение 5x
+           else if (index === 2) totalMinutes[2] += minutes / 15; // Ускорение 15x
+           else if (index === 3) totalMinutes[3] += minutes / 30; // Ускорение 30x
+           else if (index === 4) totalMinutes[4] += minutes / 60; // Ускорение 60x
+           else if (index === 5) totalMinutes[5] += minutes / 240; // Ускорение 240x
+       });
+
+       // Форматируем общее время
+       const totalDays = Math.floor(totalMinutes.reduce((a, b) => a + b, 0) / (60 * 24));
+       const totalHours = Math.floor((totalMinutes.reduce((a, b) => a + b, 0) % (60 * 24)) / 60);
+       const totalMins = Math.floor(totalMinutes.reduce((a, b) => a + b, 0) % 60);
+
+       // Обновляем текст общего времени
+       document.getElementById('total-time').innerText = `${totalDays} дней, ${totalHours} часов, ${totalMins} минут`;
+
+       // Обновляем общее количество минут
+       const allMinutes = Math.floor(totalMinutes.reduce((a, b) => a + b, 0));
+       document.getElementById('total-minutes').innerText = allMinutes;
+
+       // Применяем ускорение на основе чекбокса
+       if (document.getElementById('speed-up-checkbox').checked) {
+           const acceleratedTotalMins = Math.ceil(allMinutes * (1 - 0.10)); // Уменьшаем на 10%
+           const acceleratedDays = Math.floor(acceleratedTotalMins / (60 * 24));
+           const acceleratedHours = Math.floor((acceleratedTotalMins % (60 * 24)) / 60);
+           const acceleratedMins = acceleratedTotalMins % 60;
+
+           document.getElementById('total-time').innerText = `${acceleratedDays} дней, ${acceleratedHours} часов, ${acceleratedMins} минут (с учетом Бафа Региона)`;
+       }
+   }
+
+</script>
+
+</body>
+</html>
+
