@@ -1,0 +1,9 @@
+services:
+  app:
+    container_name: flask
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "5051:5050"
