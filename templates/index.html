@@ -2,17 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-high, initial-scale=1.0"> <!-- Метатег для управления масштабом -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Метатег для управления масштабом -->
     <title>Калькулятор ускорения</title>
     <style>
         body {
-            max-width: 1200px
-            background-image: url('../static/background_image.jpg');
-            background-size: contain; /* Заставляем изображение фона занимать всю страницу */
+            background-image: url('../static/background_image.jpg'); /* Установите путь к изображению фона */
+            background-size: cover; /* Заставляем изображение фона занимать всю страницу */
             font-family: Arial, sans-serif; /* Шрифт для страницы */
             color: #333; /* Цвет текста */
             display: flex;
-            justify-content: center;
             flex-direction: column;
             min-height: 100vh; /* Минимальная высота страницы */
             margin: 0; /* Убираем отступы у body */
@@ -65,14 +63,6 @@
             border-color: #0056b3; /* Более темный синий при фокусе */
         }
     </style>
-    (function(){
-    var width = screen.width;
-    var oldViewport = document.querySelector('meta[name="viewport"]');
-    var viewport = document.createElement('meta');
-    viewport.setAttribute('name', 'viewport');
-    viewport.setAttribute('content', 'width=' + (width <= 640 ? '640' : 'device-width'));
-    document.head.replaceChild(viewport, oldViewport);
-})();
 </head>
 <body>
 
