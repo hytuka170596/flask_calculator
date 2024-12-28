@@ -16,8 +16,7 @@
         }
         h2 {
             text-align: center;
-            color: #763683; /* Синий цвет заголовка */
-
+            color: #763683; /* Цвет заголовка */
             font-size: 2.5em; /* Размер шрифта заголовка */
         }
         table {
@@ -116,11 +115,11 @@
        inputs.forEach((input, index) => {
            const minutes = parseInt(input.value) || 0; // Получаем значение или 0, если пусто
            if (index === 0) totalMinutes[0] += minutes; // Ускорение 1x
-           else if (index === 1) totalMinutes[1] += minutes / 5; // Ускорение 5x
-           else if (index === 2) totalMinutes[2] += minutes / 15; // Ускорение 15x
-           else if (index === 3) totalMinutes[3] += minutes / 30; // Ускорение 30x
-           else if (index === 4) totalMinutes[4] += minutes / 60; // Ускорение 60x
-           else if (index === 5) totalMinutes[5] += minutes / 240; // Ускорение 240x
+           else if (index === 1) totalMinutes[1] += minutes * 5; // Ускорение 5x
+           else if (index === 2) totalMinutes[2] += minutes * 15; // Ускорение 15x
+           else if (index === 3) totalMinutes[3] += minutes * 30; // Ускорение 30x
+           else if (index === 4) totalMinutes[4] += minutes * 60; // Ускорение 60x
+           else if (index === 5) totalMinutes[5] += minutes * 240; // Ускорение 240x
        });
 
        // Форматируем общее время
