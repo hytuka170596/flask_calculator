@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Метатег для управления масштабом -->
     <title>Калькулятор ускорения</title>
     <style>
         body {
@@ -79,12 +80,22 @@
 
        <!-- Строка для ввода минут -->
        <tr class="input-row">
-           <td><input type='number' class='minutes-input' placeholder='кол-во' oninput='calculateTime()'></td>
-           <td><input type='number' class='minutes-input' placeholder='кол-во' oninput='calculateTime()'></td>
-           <td><input type='number' class='minutes-input' placeholder='кол-во' oninput='calculateTime()'></td>
-           <td><input type='number' class='minutes-input' placeholder='кол-во' oninput='calculateTime()'></td>
-           <td><input type='number' class='minutes-input' placeholder='кол-во' oninput='calculateTime()'></td>
-           <td><input type='number' class='minutes-input' placeholder='кол-во' oninput='calculateTime()'></td>
+           <td><input type='number' class='minutes-input' placeholder='кол-во' oninput='calculateTime(this)'></td>
+           <td><input type='number' class='minutes-input' placeholder='кол-во' oninput='calculateTime(this)'></td>
+           <td><input type='number' class='minutes-input' placeholder='кол-во' oninput='calculateTime(this)'></td>
+           <td><input type='number' class='minutes-input' placeholder='кол-во' oninput='calculateTime(this)'></td>
+           <td><input type='number' class='minutes-input' placeholder='кол-во' oninput='calculateTime(this)'></td>
+           <td><input type='number' class='minutes-input' placeholder='кол-во' oninput='calculateTime(this)'></td>
+       </tr>
+
+       <!-- Строка для вывода результатов умножения -->
+       <tr class="result-row">
+           <td id="result-1">0</td>
+           <td id="result-2">0</td>
+           <td id="result-3">0</td>
+           <td id="result-4">0</td>
+           <td id="result-5">0</td>
+           <td id="result-6">0</td>
        </tr>
 
        <!-- Чекбокс для ускорения -->
@@ -106,10 +117,9 @@
 </table>
 
 <script>
-   let rowCount = 1; // Счетчик строк
-
-   function calculateTime() {
+   function calculateTime(inputElement) {
        const inputs = document.querySelectorAll('.minutes-input');
+       const results = document.querySelectorAll('.result-row td');
        let totalMinutes = [0, 0, 0, 0, 0, 0]; // Массив для хранения сумм минут для каждого ускорения
 
        inputs.forEach((input, index) => {
@@ -120,6 +130,9 @@
            else if (index === 3) totalMinutes[3] += minutes * 30; // Ускорение 30x
            else if (index === 4) totalMinutes[4] += minutes * 60; // Ускорение 60x
            else if (index === 5) totalMinutes[5] += minutes * 240; // Ускорение 240x
+
+           // Обновляем результат умножения в соответствующей ячейке
+           results[index].innerText = totalMinutes[index];
        });
 
        // Форматируем общее время
@@ -148,5 +161,6 @@
 </script>
 
 </body>
+
 </html>
 
